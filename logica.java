@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class logica {
 
  
-public class Ejercicio1CifraExacta {
+public class Ejercicio3CifraExacta {
  
     static Scanner teclado = new Scanner(System.in);
  
@@ -105,5 +105,167 @@ public class Ejercicio1CifraExacta {
             return nombreJ1;
         }
         return nombreJ2;
+    }
+}
+
+
+
+
+
+ class Ejercicio3palabralarga {
+
+    static int numeroAleatorio(int min, int max) {
+        return min + (int) (Math.random() * (max - min + 1));
+    }
+
+    static char letraAleatoria(String conjunto) {
+        return conjunto.charAt(numeroAleatorio(0, conjunto.length() - 1));
+    }
+
+    static String mezclar(String texto) {
+        String resultado = "";
+        while (texto.length() > 0) {
+            int pos = numeroAleatorio(0, texto.length() - 1);
+            resultado = resultado + texto.charAt(pos);
+            texto = texto.substring(0, pos) + texto.substring(pos + 1);
+        }
+        return resultado;
+    }
+
+    static String generarLetras() {
+        String vocales = "AEIOU";
+        String consonantes = "BCDFGHJLMNÑPQRSTVXZ";
+        String resultado = "";
+ 
+        for (int i = 0; i < 4; i++) {         
+            resultado = resultado + letraAleatoria(vocales);
+        }
+        for (int i = 0; i < 4; i++) {        
+            resultado = resultado + letraAleatoria(consonantes);
+        }
+        for (int i = 8; i < 10; i++) {        
+            if (numeroAleatorio(1, 100) <= 40) {
+                resultado = resultado + letraAleatoria(vocales);
+            } else {
+                resultado = resultado + letraAleatoria(consonantes);
+            }
+        }
+        return mezclar(resultado);
+    }
+
+    static int contarLetra(String texto, char letra) {
+        int veces = 0;
+        for (int i = 0; i < texto.length(); i++) {
+            if (texto.charAt(i) == letra) {
+                veces++;
+            }
+        }
+        return veces;
+    }
+
+    static boolean sePuedeFormar(String palabra, String disponibles) {
+        for (int i = 0; i < palabra.length(); i++) {
+            char c = palabra.charAt(i);
+            if (contarLetra(palabra, c) > contarLetra(disponibles, c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static int puntosPalabra(String palabra, boolean existe, String disponibles) {
+        if (existe && sePuedeFormar(palabra, disponibles)) {
+            return palabra.length();
+        }
+        return 0;
+    }
+
+    static int ganador(int puntosJ1, int puntosJ2) {
+        if (puntosJ1 > puntosJ2) {
+            return 1;
+        } else if (puntosJ2 > puntosJ1) {
+            return 2;
+        }
+        return 0;
+    }
+}
+}
+
+
+ class Ejercicio3Calculadorahumana {
+ 
+    static int numeroAleatorio(int min, int max) {
+        return min + (int) (Math.random() * (max - min + 1));
+    }
+ 
+    static char operacionAleatoria() {
+        int n = numeroAleatorio(1, 4);
+        if (n == 1) {
+            return '+';
+        } else if (n == 2) {
+            return '-';
+        } else if (n == 3) {
+            return '*';
+        }
+        return '/';
+    }
+ 
+    static int valorAleatorio(char operacion) {
+        if (operacion == '+' || operacion == '-') {
+            return numeroAleatorio(10, 99);
+        }
+        return numeroAleatorio(2, 9);
+    }
+ 
+    static int buscarDivisor(int numero) {
+        for (int intento = 0; intento < 30; intento++) {
+            int candidato = numeroAleatorio(2, 9);
+            if (numero % candidato == 0) {
+                return candidato;
+            }
+        }
+        return 0;
+    }
+
+    static int calcular(int numero, int valor, char operacion) {
+        if (operacion == '+') {
+            return numero + valor;
+        } else if (operacion == '-') {
+            return numero - valor;
+        } else if (operacion == '*') {
+            return numero * valor;
+        }
+        return numero / valor;
+    }
+
+    static boolean esNumero(String texto) {
+        int inicio = 0;
+        if (texto.startsWith("-")) {
+            inicio = 1;
+        }
+        int cifras = texto.length() - inicio;
+        if (cifras < 1 || cifras > 9) {
+            return false;
+        }
+        for (int i = inicio; i < texto.length(); i++) {
+            char c = texto.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
+ 
+    static int segundosFinales(long milisegundos, int errores) {
+        return (int) (milisegundos / 1000) + errores * 20;
+    }
+ 
+    static int ganador(int segundosJ1, int segundosJ2) {
+        if (segundosJ1 < segundosJ2) {
+            return 1;
+        } else if (segundosJ2 < segundosJ1) {
+            return 2;
+        }
+        return 0;
     }
 }
