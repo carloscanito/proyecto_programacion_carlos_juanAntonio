@@ -1,4 +1,8 @@
+ import java.util.Scanner;
+ 
  public class interfaz{
+
+
  class ejercicio3cifraexacta {
     static String leerTexto(String mensaje) {
         System.out.print(mensaje);
@@ -92,7 +96,7 @@ class Ejercicio3palabralarga {
     public static void main(String[] args) {
         System.out.println("===== LA PALABRA MÁS LARGA =====");
  
-        String letras = Ejercicio3Logica.generarLetras();
+        String letras = Ejercicio3palabralarga.generarLetras();
  
         int puntosJ1 = turno("Jugador 1", "Jugador 2", letras);
         int puntosJ2 = turno("Jugador 2", "Jugador 1", letras);
@@ -101,7 +105,7 @@ class Ejercicio3palabralarga {
         System.out.println("Jugador 1: " + puntosJ1 + " letras");
         System.out.println("Jugador 2: " + puntosJ2 + " letras");
  
-        int ganador = Ejercicio3Logica.ganador(puntosJ1, puntosJ2);
+        int ganador = Ejercicio3palabralarga.ganador(puntosJ1, puntosJ2);
         if (ganador == 0) {
             System.out.println("Empate");
         } else {
@@ -130,7 +134,7 @@ class Ejercicio3palabralarga {
 
         boolean existe = preguntarSiNo(rival + ", ¿existe \"" + palabra + "\" en español? (s/n): ");
 
-        int puntos = Ejercicio3Logica.puntosPalabra(palabra, existe, letras);
+        int puntos = Ejercicio3palabralarga.puntosPalabra(palabra, existe, letras);
  
         if (puntos == 0) {
             System.out.println("Palabra no válida: 0 puntos.");
@@ -173,7 +177,7 @@ public class Ejercicio3Calculadorahumana {
         System.out.println("Jugador 1: " + segundosJ1 + " segundos");
         System.out.println("Jugador 2: " + segundosJ2 + " segundos");
  
-        int ganador = Ejercicio3Logica.ganador(segundosJ1, segundosJ2);
+        int ganador = Ejercicio3Calculadorahumana.ganador(segundosJ1, segundosJ2);
         if (ganador == 0) {
             System.out.println("Empate");
         } else {
@@ -187,23 +191,23 @@ public class Ejercicio3Calculadorahumana {
         System.out.print("Pulsa Enter cuando estés listo/a...");
         teclado.nextLine();
  
-        int actual = Ejercicio3Logica.numeroAleatorio(1, 100);   // número inicial
+        int actual = Ejercicio3Calculadorahumana.numeroAleatorio(1, 100);   
         int errores = 0;
         long milisegundos = 0;
  
         for (int i = 1; i <= cantidadOperaciones; i++) {
-            char operacion = Ejercicio3Logica.operacionAleatoria();
+            char operacion = Ejercicio3Calculadorahumana.operacionAleatoria();
             int valor;
             if (operacion == '/') {
-                valor = Ejercicio3Logica.buscarDivisor(actual);
+                valor = Ejercicio3Calculadorahumana.buscarDivisor(actual);
                 if (valor == 0) {
                     operacion = '+';
-                    valor = Ejercicio3Logica.valorAleatorio(operacion);
+                    valor = Ejercicio3Calculadorahumana.valorAleatorio(operacion);
                 }
             } else {
-                valor = Ejercicio3Logica.valorAleatorio(operacion);
+                valor = Ejercicio3Calculadorahumana.valorAleatorio(operacion);
             }
-            int correcto = Ejercicio3Logica.calcular(actual, valor, operacion);
+            int correcto = Ejercicio3Calculadorahumana.calcular(actual, valor, operacion);
  
             long inicio = System.currentTimeMillis();
             int respuesta = leerEntero("(" + i + "/" + cantidadOperaciones + ") "
@@ -220,7 +224,7 @@ public class Ejercicio3Calculadorahumana {
             actual = correcto;
         }
  
-        int segundos = Ejercicio3Logica.segundosFinales(milisegundos, errores);
+        int segundos = Ejercicio3Calculadorahumana.segundosFinales(milisegundos, errores);
         System.out.println(jugador + ": " + errores + " fallo(s), " + segundos + " segundos en total");
         return segundos;
     }
@@ -229,11 +233,76 @@ public class Ejercicio3Calculadorahumana {
         while (true) {
             System.out.print(mensaje);
             String texto = teclado.nextLine().trim();
-            if (Ejercicio3Logica.esNumero(texto)) {
+            if (Ejercicio3Calculadorahumana.esNumero(texto)) {
                 return Integer.parseInt(texto);
             }
             System.out.println("Error: escribe un número entero.");
         }
     }
 }
+}
+
+
+class Ejercicio4Interfaz {
+ 
+    static Scanner teclado = new Scanner(System.in);
+ 
+    public static void main(String[] args) {
+        System.out.println("===== EL CÓDIGO SECRETO =====");
+        System.out.println("He pensado un código de 4 cifras distintas (0-9).");
+        System.out.println("Cada jugador tiene 10 intentos.");
+ 
+        String codigo = Ejercicio4Logica.generarCodigo();
+ 
+        int intentosJ1 = turno("Jugador 1", codigo);
+        limpiarPantalla(); 
+        int intentosJ2 = turno("Jugador 2", codigo);
+ 
+        System.out.println();
+        System.out.println("El código era: " + codigo);
+        System.out.println("Jugador 1: " + intentosJ1 + " intentos");
+        System.out.println("Jugador 2: " + intentosJ2 + " intentos");
+ 
+        int ganador = Ejercicio4Logica.ganador(intentosJ1, intentosJ2);
+        if (ganador == 0) {
+            System.out.println("Empate");
+        } else {
+            System.out.println("¡Gana el jugador " + ganador + "!");
+        }
+    }
+ 
+    static int turno(String jugador, String codigo) {
+        System.out.println();
+        System.out.println("--- Turno de " + jugador + " ---");
+ 
+        for (int intentos = 1; intentos <= 10; intentos++) {
+            String intento;
+            while (true) {
+                System.out.print("Intento " + intentos + "/10: ");
+                intento = teclado.nextLine().trim();
+                if (Ejercicio4Logica.intentoValido(intento)) {
+                    break;
+                }
+                System.out.println("Error: escribe 4 dígitos distintos.");
+            }
+ 
+            int fijas = Ejercicio4Logica.contarFijas(codigo, intento);
+            int medias = Ejercicio4Logica.contarMedias(codigo, intento);
+ 
+            if (fijas == 4) {
+                System.out.println("¡Lo has descubierto en " + intentos + " intento(s)!");
+                return intentos;
+            }
+            System.out.println("Fijas: " + fijas + " | Medias: " + medias);
+        }
+ 
+        System.out.println("Se acabaron los intentos.");
+        return 11;
+    }
+ 
+    static void limpiarPantalla() {
+        for (int i = 0; i < 40; i++) {
+            System.out.println();
+        }
+    }
 }

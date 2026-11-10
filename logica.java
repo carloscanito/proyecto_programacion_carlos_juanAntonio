@@ -192,6 +192,9 @@ public class Ejercicio3CifraExacta {
 }
 
 
+
+
+
  class Ejercicio3Calculadorahumana {
  
     static int numeroAleatorio(int min, int max) {
@@ -264,6 +267,83 @@ public class Ejercicio3CifraExacta {
         if (segundosJ1 < segundosJ2) {
             return 1;
         } else if (segundosJ2 < segundosJ1) {
+            return 2;
+        }
+        return 0;
+    }
+}
+
+
+
+
+class Ejercicio4Logica {
+ 
+    static int numeroAleatorio(int min, int max) {
+        return min + (int) (Math.random() * (max - min + 1));
+    }
+
+    static String generarCodigo() {
+        String codigo = "";
+        while (codigo.length() < 4) {
+            char cifra = (char) ('0' + numeroAleatorio(0, 9));
+            if (codigo.indexOf(cifra) < 0) {   
+                codigo = codigo + cifra;
+            }
+        }
+        return codigo;
+    }
+
+    static int contarCaracter(String texto, char caracter) {
+        int veces = 0;
+        for (int i = 0; i < texto.length(); i++) {
+            if (texto.charAt(i) == caracter) {
+                veces++;
+            }
+        }
+        return veces;
+    }
+
+    static boolean intentoValido(String intento) {
+        if (intento.length() != 4) {
+            return false;
+        }
+        for (int i = 0; i < 4; i++) {
+            char c = intento.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+            if (contarCaracter(intento, c) > 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static int contarFijas(String codigo, String intento) {
+        int fijas = 0;
+        for (int i = 0; i < 4; i++) {
+            if (codigo.charAt(i) == intento.charAt(i)) {
+                fijas++;
+            }
+        }
+        return fijas;
+    }
+
+    static int contarMedias(String codigo, String intento) {
+        int medias = 0;
+        for (int i = 0; i < 4; i++) {
+            char c = intento.charAt(i);
+            if (codigo.charAt(i) != c && codigo.indexOf(c) >= 0) {
+                medias++;
+            }
+        }
+        return medias;
+    }
+
+    static int ganador(int intentosJ1, int intentosJ2) {
+        if (intentosJ1 < intentosJ2) {
+            return 1;
+        } else if (intentosJ2 < intentosJ1) {
             return 2;
         }
         return 0;
