@@ -2,6 +2,7 @@
  
  public class interfaz{
 
+static Scanner teclado = new Scanner(System.in);
 
  class ejercicio3cifraexacta {
     static String leerTexto(String mensaje) {
