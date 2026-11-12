@@ -80,7 +80,7 @@ public class modo_juego {
 
                 // logica del modo rápido
                 if (puntosPruebaJ1 > puntosPruebaJ2) {
-                    System.out.println("¡Ganador de la prueba: " + jugador1 + "!");
+                    System.out.println("    ¡Ganador de la prueba: " + jugador1 + "!");
                 } else if (puntosPruebaJ2 > puntosPruebaJ1) {
                     System.out.println("¡Ganador de la prueba: " + jugador2 + "!");
                 } else {
