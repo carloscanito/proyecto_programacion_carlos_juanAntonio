@@ -6,7 +6,7 @@ Descripcion del proyecto
 
 El programa ofrece dos modos de juego principales y un menu de configuracion previa:   
 Proyecto de programación_ Cifras y Letras.pdf
-
+    
 Modos de juego
 
 Modo Concurso: Se disputan todas las pruebas disponibles en orden. El ganador de cada prueba suma 1 punto en el marcador global (en caso de empate, nadie suma). Gana el jugador con mayor puntuacion global al finalizar.   

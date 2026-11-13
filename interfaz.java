@@ -1,7 +1,7 @@
  import java.util.Scanner;
  
  public class interfaz{
-
+        
 static Scanner teclado = new Scanner(System.in);
 
  class ejercicio3cifraexacta {
